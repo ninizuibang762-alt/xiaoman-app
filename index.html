@@ -323,17 +323,17 @@
     #xiaomanIntro{--ink:#687077;--key:rgba(255,255,255,.82);--pressed:rgba(211,220,225,.82);position:fixed;inset:0;z-index:10000;display:grid;place-items:center;overflow:hidden;background:#fff;touch-action:none;user-select:none;-webkit-user-select:none;transition:opacity .36s cubic-bezier(.4,0,.2,1),visibility .36s}
     #xiaomanIntro::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E")}
     #xiaomanIntro.entering{opacity:0;visibility:hidden}
-    .typing-scene{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:56px;transform:translateY(-2vh)}
-    .typed-word{height:62px;min-width:240px;text-align:center;color:var(--ink);font-family:"Bradley Hand","Segoe Print","Comic Sans MS",cursive;font-size:52px;font-weight:400;line-height:62px;letter-spacing:.015em}
+    .typing-scene{position:absolute;z-index:1;inset:0}
+    .typed-word{position:absolute;left:50%;top:39%;transform:translate(-50%,-50%);height:56px;min-width:260px;text-align:center;color:var(--ink);font-family:"SFMono-Regular",Menlo,Monaco,Consolas,"Liberation Mono",monospace;font-size:44px;font-weight:400;line-height:56px;letter-spacing:.075em}
     .typed-word::after{content:"";display:inline-block;width:1.5px;height:.82em;margin-left:4px;vertical-align:-.08em;background:rgba(104,112,119,.48);animation:cursor-blink .55s steps(1,end) infinite}
-    .mini-keyboard{width:218px;padding:9px;border:1px solid rgba(229,234,237,.8);border-radius:15px;background:rgba(240,244,246,.68);box-shadow:0 10px 30px rgba(94,110,120,.07),inset 0 1px rgba(255,255,255,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+    .mini-keyboard{position:absolute;left:50%;top:59%;transform:translate(-50%,-50%);width:202px;padding:8px;border:1px solid rgba(229,234,237,.72);border-radius:14px;background:rgba(240,244,246,.58);box-shadow:0 10px 30px rgba(94,110,120,.055),inset 0 1px rgba(255,255,255,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
     .key-row{display:flex;justify-content:center;gap:6px;margin-bottom:6px}.key-row:last-child{margin-bottom:0}
-    .mini-key{display:grid;place-items:center;width:44px;height:40px;border:1px solid rgba(229,234,237,.74);border-radius:8px;background:var(--key);box-shadow:0 2px 5px rgba(91,106,116,.045),inset 0 1px rgba(255,255,255,.9);color:#737b81;font:500 16px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",sans-serif;transition:transform .07s ease,background .07s ease,color .07s ease,box-shadow .07s ease}
-    .mini-key.space{width:116px;font-size:11px;color:#a3a9ad}.mini-key.return{width:50px;font-size:11px;color:#7f888e;background:rgba(231,236,239,.84)}
+    .mini-key{display:grid;place-items:center;width:40px;height:36px;border:1px solid rgba(229,234,237,.7);border-radius:8px;background:var(--key);box-shadow:0 2px 5px rgba(91,106,116,.04),inset 0 1px rgba(255,255,255,.9);color:#737b81;font:500 15px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",sans-serif;transition:transform .07s ease,background .07s ease,color .07s ease,box-shadow .07s ease}
+    .mini-key.space{width:108px;font-size:10px;color:#a3a9ad}.mini-key.return{width:46px;font-size:10px;color:#7f888e;background:rgba(231,236,239,.78)}
     .mini-key.is-pressed{transform:translateY(2px) scale(.96);background:var(--pressed);color:#59646b;box-shadow:inset 0 1px 3px rgba(91,106,116,.12)}
-    #xiaomanIntro.entering .typing-scene{opacity:0;transform:translateY(-2vh) scale(.985);transition:opacity .32s ease,transform .42s ease}
+    #xiaomanIntro.entering .typing-scene{opacity:0;transform:scale(.992);transition:opacity .32s ease,transform .42s ease}
     @keyframes cursor-blink{0%,48%{opacity:1}49%,100%{opacity:0}}
-    @media(max-width:380px){.typed-word{font-size:47px}.typing-scene{gap:48px}}
+    @media(max-width:380px){.typed-word{font-size:40px;top:38.5%}.mini-keyboard{top:59.5%}}
     @media(prefers-reduced-motion:reduce){.typed-word::after{animation:none}.mini-key{transition:none}}
   </style>
   <div id="xiaomanIntro" role="presentation" aria-hidden="true">
