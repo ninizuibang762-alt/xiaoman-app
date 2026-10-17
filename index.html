@@ -318,67 +318,36 @@
     (()=>{const splash=document.getElementById('xiaomanSplash');if(!splash)return;const leave=()=>{if(splash.classList.contains('is-leaving'))return;splash.classList.add('is-leaving');window.setTimeout(()=>splash.remove(),820)};window.setTimeout(leave,3000)})();
   </script>
 
-  <style id="xiaoman-kid-intro-style">
+  <style id="xiaoman-keyboard-intro-style">
     #xiaomanSplash{display:none!important}
-    #xiaomanIntro{--warm:#f5efe5;--warm-deep:#eadfce;--kid:#51453d;position:fixed;inset:0;z-index:10000;overflow:hidden;background:radial-gradient(circle at 50% 34%,#fbf8f1 0,#f7f1e7 38%,var(--warm) 72%,#f1e7d9 100%);touch-action:none;user-select:none;-webkit-user-select:none;transition:opacity .72s cubic-bezier(.4,0,.2,1),visibility .72s}
-    #xiaomanIntro::before{content:"";position:absolute;inset:0;opacity:.22;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E")}
+    #xiaomanIntro{--ink:#5c4a40;--key:#f2f1ef;--pressed:#dfd3cb;position:fixed;inset:0;z-index:10000;display:grid;place-items:center;overflow:hidden;background:#fff;touch-action:none;user-select:none;-webkit-user-select:none;transition:opacity .36s cubic-bezier(.4,0,.2,1),visibility .36s}
+    #xiaomanIntro::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E")}
     #xiaomanIntro.entering{opacity:0;visibility:hidden}
-    .kid-logo-wrap{position:absolute;z-index:4;left:50%;top:31%;width:min(78vw,430px);transform:translate(-50%,-50%);transition:transform .28s ease,filter .28s ease,opacity .38s ease}
-    .kid-logo{display:block;width:100%;overflow:visible;fill:none;stroke:var(--kid);stroke-width:6.2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 0 rgba(255,255,255,.5))}
-    .kid-logo .letter{stroke-dasharray:240;stroke-dashoffset:240;animation:kid-draw .85s cubic-bezier(.35,.05,.28,1) forwards}
-    .kid-logo .letter:nth-of-type(2){animation-delay:.10s}.kid-logo .letter:nth-of-type(3){animation-delay:.19s}.kid-logo .letter:nth-of-type(4){animation-delay:.28s}.kid-logo .letter:nth-of-type(5){animation-delay:.37s}.kid-logo .letter:nth-of-type(6){animation-delay:.46s}.kid-logo .letter:nth-of-type(7){animation-delay:.55s}
-    .kid-logo .dot{fill:var(--kid);stroke:none;opacity:0;animation:kid-dot .18s .72s ease forwards}
-    #xiaomanIntro.near-logo .kid-logo-wrap{transform:translate(-50%,-50%) scale(1.025) rotate(-.35deg);filter:url(#kidWobble)}
-    #xiaomanIntro.entering .kid-logo-wrap{opacity:0;filter:blur(7px);transform:translate(-50%,-53%) scale(1.05)}
-    .sheep-slider{position:absolute;z-index:5;left:50%;bottom:15%;width:min(82vw,430px);height:126px;transform:translateX(-50%);opacity:0;animation:slider-in .55s 1.05s ease forwards}
-    .sheep-route{position:absolute;left:84px;right:12px;top:61px;height:18px;pointer-events:none;opacity:.54;transition:opacity .2s}
-    .sheep-route::before{content:"";position:absolute;left:0;right:17px;top:7px;height:3px;border-radius:3px;background:repeating-linear-gradient(90deg,var(--kid) 0 12px,transparent 12px 22px)}
-    .sheep-route::after{content:"";position:absolute;right:1px;top:2px;width:11px;height:11px;border-top:3px solid var(--kid);border-right:3px solid var(--kid);border-radius:1px;transform:rotate(45deg)}
-    .intro-sheep{position:absolute;left:0;top:18px;width:106px;height:84px;cursor:grab;outline:none;touch-action:none;will-change:transform;filter:drop-shadow(0 7px 7px rgba(81,69,61,.08))}
-    .intro-sheep:focus-visible{filter:drop-shadow(0 0 5px rgba(81,69,61,.4))}
-    .intro-sheep.dragging{cursor:grabbing}
-    .intro-sheep svg{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:var(--kid);stroke-width:4.2;stroke-linecap:round;stroke-linejoin:round;animation:sheep-ready 2.2s 1.6s ease-in-out infinite}
-    .intro-sheep.dragging svg{animation:none}
-    .intro-sheep .wool{fill:rgba(255,255,255,.28)}
-    .intro-sheep .eye{fill:var(--kid);stroke:none}
-    #xiaomanIntro.has-drag .sheep-route{opacity:.72}
-    #xiaomanIntro.entering .sheep-slider{opacity:0;transition:opacity .48s .12s ease}
-    @keyframes kid-draw{to{stroke-dashoffset:0}}
-    @keyframes kid-dot{to{opacity:1}}
-    @keyframes slider-in{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
-    @keyframes sheep-ready{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(-1deg)}}
-    @media(min-width:700px){.kid-logo-wrap{top:28%;width:390px}.sheep-slider{bottom:16%;width:430px}}
-    @media(prefers-reduced-motion:reduce){.kid-logo .letter{animation-duration:.01ms}.kid-logo .dot{animation-delay:0s}.sheep-slider{animation-duration:.01ms}.intro-sheep svg{animation:none}}
+    .typing-scene{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:34px;transform:translateY(-2vh)}
+    .typed-word{height:62px;min-width:240px;text-align:center;color:var(--ink);font-family:"Bradley Hand","Segoe Print","Comic Sans MS",cursive;font-size:52px;font-weight:400;line-height:62px;letter-spacing:.015em}
+    .typed-word::after{content:"";display:inline-block;width:1.5px;height:.82em;margin-left:4px;vertical-align:-.08em;background:rgba(92,74,64,.58);animation:cursor-blink .55s steps(1,end) infinite}
+    .mini-keyboard{width:218px;padding:9px;border-radius:15px;background:rgba(213,212,209,.88);box-shadow:0 8px 24px rgba(72,63,57,.08),inset 0 1px rgba(255,255,255,.8)}
+    .key-row{display:flex;justify-content:center;gap:6px;margin-bottom:6px}.key-row:last-child{margin-bottom:0}
+    .mini-key{display:grid;place-items:center;width:44px;height:40px;border-radius:8px;background:var(--key);box-shadow:0 1px 1px rgba(64,56,51,.12);color:#665b55;font:500 16px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",sans-serif;transition:transform .07s ease,background .07s ease,color .07s ease,box-shadow .07s ease}
+    .mini-key.space{width:116px;font-size:11px;color:#9a938e}.mini-key.return{width:50px;font-size:11px;color:#fff;background:#b7aaa2}
+    .mini-key.is-pressed{transform:translateY(2px) scale(.96);background:var(--pressed);color:var(--ink);box-shadow:inset 0 1px 2px rgba(80,63,54,.15)}
+    #xiaomanIntro.entering .typing-scene{opacity:0;transform:translateY(-2vh) scale(.985);transition:opacity .32s ease,transform .42s ease}
+    @keyframes cursor-blink{0%,48%{opacity:1}49%,100%{opacity:0}}
+    @media(max-width:380px){.typed-word{font-size:47px}.typing-scene{gap:30px}}
+    @media(prefers-reduced-motion:reduce){.typed-word::after{animation:none}.mini-key{transition:none}}
   </style>
-  <div id="xiaomanIntro" role="dialog" aria-label="小满开屏，向右拖动小羊进入">
-    <div class="kid-logo-wrap" aria-label="Xiaoman">
-      <svg class="kid-logo" viewBox="0 0 438 128" role="img" aria-label="Xiaoman 手写字">
-        <defs><filter id="kidWobble"><feTurbulence type="fractalNoise" baseFrequency=".012 .055" numOctaves="1" seed="8" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="3.2"/></filter></defs>
-        <g class="letter"><path d="M22 31 C34 51 47 74 66 99 M67 29 C53 50 38 74 20 98"/></g>
-        <g class="letter"><path d="M88 55 C87 69 89 84 87 99"/></g><circle class="dot" cx="89" cy="36" r="4.3"/>
-        <g class="letter"><path d="M126 59 C113 51 106 64 108 79 C110 96 124 103 132 86 C136 77 132 61 126 59 M133 60 C132 74 132 89 138 98"/></g>
-        <g class="letter"><path d="M176 58 C163 52 153 62 153 78 C153 94 164 101 176 96 C188 91 190 75 184 65 C182 61 179 59 176 58"/></g>
-        <g class="letter"><path d="M207 59 C208 72 207 86 208 98 M208 67 C215 55 227 56 229 68 C231 78 229 89 230 98 M230 68 C238 54 250 57 252 69 C254 79 252 90 254 98"/></g>
-        <g class="letter"><path d="M290 59 C278 52 269 64 270 79 C271 96 285 102 293 87 C298 77 295 62 290 59 M296 60 C294 76 295 89 300 98"/></g>
-        <g class="letter"><path d="M323 59 C324 72 323 85 325 98 M324 68 C333 54 348 57 350 70 C351 79 349 91 353 98"/></g>
-      </svg>
-    </div>
-    <div class="sheep-slider">
-      <div class="sheep-route" aria-hidden="true"></div>
-      <div class="intro-sheep" role="button" tabindex="0" aria-label="向右拖动小羊进入小满">
-        <svg viewBox="0 0 126 98" role="img" aria-label="手绘小羊">
-          <path class="wool" d="M31 28c-7-10 6-17 14-11 5-11 20-10 24 0 9-7 22 0 18 11 12-1 18 12 10 20 7 7 1 20-10 20H39c-12 0-17-14-9-22-8-4-7-15 1-18Z"/>
-          <path d="M31 28c-7-10 6-17 14-11 5-11 20-10 24 0 9-7 22 0 18 11 12-1 18 12 10 20 7 7 1 20-10 20H39c-12 0-17-14-9-22-8-4-7-15 1-18Z"/>
-          <path d="M91 32c13-6 24 3 22 15-1 10-9 17-19 16-7-1-11-6-10-13M106 32c5-7 11-5 10 2M35 66l-2 19M52 68l-1 17M77 68l2 17M91 65l5 18M29 85h9M47 85h9M75 85h9M92 84h9"/>
-          <path d="M25 42c-8-5-13 3-8 8 4 4 10 1 11-3"/>
-          <circle class="eye" cx="101" cy="46" r="2.4"/>
-          <path d="M110 54c-3 2-5 2-7 0"/>
-        </svg>
+  <div id="xiaomanIntro" role="presentation" aria-hidden="true">
+    <div class="typing-scene">
+      <div class="typed-word" aria-label="xiaoman"></div>
+      <div class="mini-keyboard" aria-hidden="true">
+        <div class="key-row"><span class="mini-key" data-key="x">x</span><span class="mini-key" data-key="i">i</span><span class="mini-key" data-key="a">a</span><span class="mini-key" data-key="o">o</span></div>
+        <div class="key-row"><span class="mini-key" data-key="m">m</span><span class="mini-key" data-key="a">a</span><span class="mini-key" data-key="n">n</span></div>
+        <div class="key-row"><span class="mini-key space">space</span><span class="mini-key return">enter</span></div>
       </div>
     </div>
   </div>
-  <script id="xiaoman-kid-intro-script">
-    (()=>{const intro=document.getElementById('xiaomanIntro'),slider=intro?.querySelector('.sheep-slider'),sheep=intro?.querySelector('.intro-sheep');if(!intro||!slider||!sheep)return;let active=false,startX=0,drag=0,pointerId=null,finished=false;const maxDrag=()=>Math.max(1,slider.clientWidth-sheep.offsetWidth-4);const paint=value=>{drag=Math.max(0,Math.min(maxDrag(),value));const p=drag/maxDrag();sheep.style.transform=`translateX(${drag}px) translateY(${-Math.sin(p*Math.PI)*3}px) rotate(${-p*2}deg)`;intro.classList.toggle('has-drag',drag>4);intro.classList.toggle('near-logo',p>.42&&p<.88)};const finish=()=>{if(finished)return;finished=true;active=false;sheep.classList.remove('dragging');sheep.style.transition='transform .38s cubic-bezier(.2,.8,.25,1)';sheep.style.transform=`translateX(${maxDrag()+12}px) translateY(-13px) rotate(-4deg) scale(1.04)`;intro.classList.remove('near-logo');intro.classList.add('entering');setTimeout(()=>intro.remove(),760)};const reset=()=>{active=false;sheep.classList.remove('dragging');sheep.style.transition='transform .56s cubic-bezier(.22,.9,.28,1.15)';paint(0);setTimeout(()=>{sheep.style.transition='';intro.classList.remove('has-drag')},590)};sheep.addEventListener('pointerdown',e=>{if(finished)return;e.preventDefault();active=true;pointerId=e.pointerId;startX=e.clientX-drag;sheep.classList.add('dragging');sheep.style.transition='';sheep.setPointerCapture?.(pointerId)});sheep.addEventListener('pointermove',e=>{if(!active||e.pointerId!==pointerId)return;e.preventDefault();paint(e.clientX-startX)});const release=e=>{if(!active||e.pointerId!==pointerId)return;drag/maxDrag()>=.72?finish():reset()};sheep.addEventListener('pointerup',release);sheep.addEventListener('pointercancel',reset);sheep.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '||e.key==='ArrowRight'){e.preventDefault();finish()}});addEventListener('resize',()=>{if(!active&&!finished)paint(0)})})();
+  <script id="xiaoman-keyboard-intro-script">
+    (()=>{const intro=document.getElementById('xiaomanIntro'),word=intro?.querySelector('.typed-word');if(!intro||!word)return;const text='xiaoman',keys=[...intro.querySelectorAll('[data-key]')];let i=0;const type=()=>{if(i>=text.length){setTimeout(()=>{intro.classList.add('entering');setTimeout(()=>intro.remove(),390)},250);return}const char=text[i++],key=keys.find(el=>el.dataset.key===char&&!el.classList.contains('is-pressed'));word.textContent+=char;if(key){key.classList.add('is-pressed');setTimeout(()=>key.classList.remove('is-pressed'),80)}setTimeout(type,105)};setTimeout(type,100)})();
   </script>
 
 </body>
