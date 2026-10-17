@@ -320,25 +320,45 @@
 
   <style id="xiaoman-keyboard-intro-style">
     #xiaomanSplash{display:none!important}
-    #xiaomanIntro{--ink:#687077;--key:rgba(255,255,255,.82);--pressed:rgba(211,220,225,.82);position:fixed;inset:0;z-index:10000;display:grid;place-items:center;overflow:hidden;background:#fff;touch-action:none;user-select:none;-webkit-user-select:none;transition:opacity .36s cubic-bezier(.4,0,.2,1),visibility .36s}
+    #xiaomanIntro{--ink:#687077;--key:rgba(255,255,255,.82);--pressed:rgba(211,220,225,.82);--blue:#73a9c7;position:fixed;inset:0;z-index:10000;display:grid;place-items:center;overflow:hidden;background:#fff;touch-action:none;user-select:none;-webkit-user-select:none;transition:opacity .52s cubic-bezier(.4,0,.2,1),visibility .52s}
     #xiaomanIntro::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E")}
     #xiaomanIntro.entering{opacity:0;visibility:hidden}
+    #xiaomanIntro::after{content:"";position:absolute;left:50%;top:40%;width:40px;height:40px;border:1px solid rgba(115,169,199,.34);border-radius:50%;opacity:0;transform:translate(-50%,-50%) scale(.3);pointer-events:none}
+    #xiaomanIntro.sent::after{animation:send-ripple .72s cubic-bezier(.15,.64,.26,1) both}
     .typing-scene{position:absolute;z-index:1;inset:0}
-    .typed-word{position:absolute;left:50%;top:39%;transform:translate(-50%,-50%);height:56px;min-width:260px;text-align:center;color:var(--ink);font-family:"SFMono-Regular",Menlo,Monaco,Consolas,"Liberation Mono",monospace;font-size:44px;font-weight:400;line-height:56px;letter-spacing:.075em}
-    .typed-word::after{content:"";display:inline-block;width:1.5px;height:.82em;margin-left:4px;vertical-align:-.08em;background:rgba(104,112,119,.48);animation:cursor-blink .55s steps(1,end) infinite}
-    .mini-keyboard{position:absolute;left:50%;top:59%;transform:translate(-50%,-50%);width:202px;padding:8px;border:1px solid rgba(229,234,237,.72);border-radius:14px;background:rgba(240,244,246,.58);box-shadow:0 10px 30px rgba(94,110,120,.055),inset 0 1px rgba(255,255,255,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+    .search-box{position:absolute;left:50%;top:39%;transform:translate(-50%,-50%);display:flex;align-items:center;width:min(76vw,330px);height:52px;padding:5px 6px 5px 20px;border:1px solid rgba(210,219,224,.88);border-radius:27px;background:rgba(255,255,255,.82);box-shadow:0 8px 28px rgba(89,106,118,.055),inset 0 1px rgba(255,255,255,.98);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:border-color .22s ease,box-shadow .22s ease,transform .5s ease,opacity .5s ease}
+    .search-box.is-focused{border-color:rgba(150,181,198,.72);box-shadow:0 9px 30px rgba(89,106,118,.07),0 0 0 3px rgba(115,169,199,.075),inset 0 1px rgba(255,255,255,.98)}
+    .typed-word{flex:1;min-width:0;height:40px;overflow:hidden;color:var(--ink);font-family:"SFMono-Regular",Menlo,Monaco,Consolas,"Liberation Mono",monospace;font-size:22px;font-weight:400;line-height:40px;letter-spacing:.055em;white-space:nowrap}
+    .typed-word::after{content:"";display:inline-block;width:1.4px;height:.82em;margin-left:3px;vertical-align:-.08em;background:rgba(104,112,119,.48);opacity:0}
+    .search-box.is-focused .typed-word::after{opacity:1;animation:cursor-blink .62s steps(1,end) infinite}
+    .send-arrow{position:relative;display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border-radius:50%;background:var(--blue);box-shadow:0 4px 13px rgba(91,149,181,.2);transition:transform .12s ease,background .2s ease}
+    .send-arrow::before{content:"";width:11px;height:11px;border-left:2px solid #fff;border-top:2px solid #fff;transform:translateY(3px) rotate(45deg)}
+    .send-arrow::after{content:"";position:absolute;left:19px;top:11px;width:2px;height:20px;border-radius:2px;background:#fff}
+    .send-arrow.is-pressed{transform:scale(.9);background:#5c9abb}
+    .mouse-pointer{position:absolute;z-index:4;left:38%;top:47%;width:20px;height:25px;opacity:0;filter:drop-shadow(0 1px 1px rgba(70,78,83,.12));transform:translate(-50%,-50%);transition:left .48s cubic-bezier(.22,.72,.25,1),top .48s cubic-bezier(.22,.72,.25,1),transform .12s ease,opacity .2s ease}
+    .mouse-pointer::before{content:"";position:absolute;inset:0;background:#667078;clip-path:polygon(6% 0,83% 69%,52% 72%,69% 100%,56% 100%,39% 76%,17% 98%)}
+    .mouse-pointer.is-visible{opacity:.72}.mouse-pointer.to-field{left:45%;top:39%}.mouse-pointer.to-send{left:61%;top:39%}.mouse-pointer.clicking{transform:translate(-50%,-50%) scale(.82)}
+    .mini-keyboard{position:absolute;left:50%;top:63%;transform:translate(-50%,-50%);width:202px;padding:8px;border:1px solid rgba(229,234,237,.72);border-radius:14px;background:rgba(240,244,246,.58);box-shadow:0 10px 30px rgba(94,110,120,.055),inset 0 1px rgba(255,255,255,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .5s ease,opacity .5s ease}
     .key-row{display:flex;justify-content:center;gap:6px;margin-bottom:6px}.key-row:last-child{margin-bottom:0}
     .mini-key{display:grid;place-items:center;width:40px;height:36px;border:1px solid rgba(229,234,237,.7);border-radius:8px;background:var(--key);box-shadow:0 2px 5px rgba(91,106,116,.04),inset 0 1px rgba(255,255,255,.9);color:#737b81;font:500 15px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",sans-serif;transition:transform .07s ease,background .07s ease,color .07s ease,box-shadow .07s ease}
     .mini-key.space{width:108px;font-size:10px;color:#a3a9ad}.mini-key.return{width:46px;font-size:10px;color:#7f888e;background:rgba(231,236,239,.78)}
     .mini-key.is-pressed{transform:translateY(2px) scale(.96);background:var(--pressed);color:#59646b;box-shadow:inset 0 1px 3px rgba(91,106,116,.12)}
-    #xiaomanIntro.entering .typing-scene{opacity:0;transform:scale(.992);transition:opacity .32s ease,transform .42s ease}
+    #xiaomanIntro.sent .search-box{opacity:0;transform:translate(-50%,-50%) scale(1.08);filter:blur(4px)}
+    #xiaomanIntro.sent .mini-keyboard{opacity:0;transform:translate(-50%,-48%) scale(.94);filter:blur(3px)}
+    #xiaomanIntro.sent .mouse-pointer{opacity:0}
+    #xiaomanIntro.entering .typing-scene{opacity:0;transform:scale(1.01);transition:opacity .48s ease,transform .52s ease}
     @keyframes cursor-blink{0%,48%{opacity:1}49%,100%{opacity:0}}
-    @media(max-width:380px){.typed-word{font-size:40px;top:38.5%}.mini-keyboard{top:59.5%}}
+    @keyframes send-ripple{0%{opacity:.4;transform:translate(-50%,-50%) scale(.3)}100%{opacity:0;transform:translate(-50%,-50%) scale(23)}}
+    @media(max-width:380px){.search-box{top:38%;width:min(82vw,320px)}.typed-word{font-size:20px}.mini-keyboard{top:63%}.mouse-pointer.to-field{top:38%}.mouse-pointer.to-send{top:38%;left:68%}}
     @media(prefers-reduced-motion:reduce){.typed-word::after{animation:none}.mini-key{transition:none}}
   </style>
   <div id="xiaomanIntro" role="presentation" aria-hidden="true">
     <div class="typing-scene">
-      <div class="typed-word" aria-label="xiaoman"></div>
+      <div class="search-box" aria-label="输入 Xiaoman">
+        <div class="typed-word" aria-label="xiaoman"></div>
+        <span class="send-arrow" aria-hidden="true"></span>
+      </div>
+      <span class="mouse-pointer" aria-hidden="true"></span>
       <div class="mini-keyboard" aria-hidden="true">
         <div class="key-row"><span class="mini-key" data-key="x">x</span><span class="mini-key" data-key="i">i</span><span class="mini-key" data-key="a">a</span><span class="mini-key" data-key="o">o</span></div>
         <div class="key-row"><span class="mini-key" data-key="m">m</span><span class="mini-key" data-key="a">a</span><span class="mini-key" data-key="n">n</span></div>
@@ -347,7 +367,7 @@
     </div>
   </div>
   <script id="xiaoman-keyboard-intro-script">
-    (()=>{const intro=document.getElementById('xiaomanIntro'),word=intro?.querySelector('.typed-word');if(!intro||!word)return;const text='xiaoman',keys=[...intro.querySelectorAll('[data-key]')];let i=0;const type=()=>{if(i>=text.length){setTimeout(()=>{intro.classList.add('entering');setTimeout(()=>intro.remove(),390)},250);return}const char=text[i++],key=keys.find(el=>el.dataset.key===char&&!el.classList.contains('is-pressed'));word.textContent+=char;if(key){key.classList.add('is-pressed');setTimeout(()=>key.classList.remove('is-pressed'),80)}setTimeout(type,105)};setTimeout(type,100)})();
+    (()=>{const intro=document.getElementById('xiaomanIntro'),box=intro?.querySelector('.search-box'),word=intro?.querySelector('.typed-word'),pointer=intro?.querySelector('.mouse-pointer'),arrow=intro?.querySelector('.send-arrow');if(!intro||!box||!word||!pointer||!arrow)return;const text='xiaoman',keys=[...intro.querySelectorAll('[data-key]')];let i=0;const later=(fn,ms)=>setTimeout(fn,ms);const click=()=>{pointer.classList.add('clicking');later(()=>pointer.classList.remove('clicking'),130)};const type=()=>{if(i>=text.length){later(()=>{pointer.classList.remove('to-field');pointer.classList.add('to-send')},280);later(click,790);later(()=>arrow.classList.add('is-pressed'),790);later(()=>{arrow.classList.remove('is-pressed');intro.classList.add('sent')},940);later(()=>intro.classList.add('entering'),1320);later(()=>intro.remove(),1900);return}const char=text[i++],key=keys.find(el=>el.dataset.key===char&&!el.classList.contains('is-pressed'));word.textContent+=char;if(key){key.classList.add('is-pressed');later(()=>key.classList.remove('is-pressed'),110)}later(type,145)};later(()=>pointer.classList.add('is-visible'),220);later(()=>pointer.classList.add('to-field'),410);later(click,900);later(()=>box.classList.add('is-focused'),900);later(type,1120)})();
   </script>
 
 </body>
